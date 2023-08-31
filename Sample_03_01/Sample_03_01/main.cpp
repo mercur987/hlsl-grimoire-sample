@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 #include "system/system.h"
 #include "TrianglePolygon.h"
 
@@ -26,9 +26,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     triangle.Init(rootSignature);
 
     // step-1 定数バッファを作成
-
+    ConstantBuffer cb;
+    cb.Init(sizeof(Matrix));
     // step-2 ディスクリプタヒープを作成
-
+    DescriptorHeap ds;
+    ds.RegistConstantBuffer(0, cb);
+    ds.Commit();
+    float x = 0;
+    float y = 0;
     //////////////////////////////////////
     // 初期化を行うコードを書くのはここまで！！！
     //////////////////////////////////////
@@ -46,13 +51,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
         //ルートシグネチャを設定
         renderContext.SetRootSignature(rootSignature);
-
+        
         // step-3 ワールド行列を作成
-
+        Matrix mworld;
+        mworld.MakeTranslation(x, y, 0.0f);
         // step-4 ワールド行列をグラフィックメモリにコピー
-
+        cb.CopyToVRAM(mworld);
         // step-5 ディスクリプタヒープを設定
-
+        renderContext.SetDescriptorHeap(ds);
         //三角形をドロー
         triangle.Draw(renderContext);
 
@@ -61,6 +67,26 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         //////////////////////////////////////
         //フレーム終了
         g_engine->EndFrame();
+        if (x > 0) {
+            x = x + 0.001f;
+        }
+        else {
+            x = x + 0.005;
+        }
+        if (y > 0) {
+            y = y + 0.001f;
+        }
+        else
+        {
+            y = y+0.002;
+        }
+        if (x > 1) {
+            x = -1;
+        }
+       
+        if (y > 1) {
+            y = -1;
+        }
     }
     return 0;
 }
