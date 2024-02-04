@@ -34,6 +34,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     ds.Commit();
     float x = 0;
     float y = 0;
+    float yup = 0;
+    bool yu = true;
+    float ydo = 0;
     //////////////////////////////////////
     // 初期化を行うコードを書くのはここまで！！！
     //////////////////////////////////////
@@ -67,25 +70,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         //////////////////////////////////////
         //フレーム終了
         g_engine->EndFrame();
-        if (x > 0) {
-            x = x + 0.001f;
+        if (y > 0.8) {
+            yu = true;
         }
-        else {
-            x = x + 0.005;
+        if (y < -0.8) {
+            yu = false;
         }
-        if (y > 0) {
-            y = y + 0.001f;
+        if (yu==false) {
+            y += 0.001;
         }
-        else
-        {
-            y = y+0.002;
-        }
-        if (x > 1) {
-            x = -1;
-        }
-       
-        if (y > 1) {
-            y = -1;
+        else if(yu==true){
+            y -= 0.002;
         }
     }
     return 0;
