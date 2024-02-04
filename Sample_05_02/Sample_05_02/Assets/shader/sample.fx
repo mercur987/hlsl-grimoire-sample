@@ -114,7 +114,7 @@ float3 specSpotLight=CalcPhongSpecular(ligDir,spColor,psIn.wolrdPos,psIn.normal)
 float3 distance=length(psIn.wolrdPos-spPosition);
 float affect=1.0f-1.0f/spRange*distance;
 if(affect<0.0f){
-    affect=0.0f
+    affect=0.0f;
 }
 affect=pow(affect,3.0f);
 
