@@ -115,7 +115,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         // 5. インデックスバッファを設定
         renderContext.SetIndexBuffer(triangleIB);
         // 6. ドローコール
-        renderContext.DrawIndexed(3);
+        renderContext.DrawIndexed(51);
 
         /// //////////////////////////////////////
         // 絵を描くコードを書くのはここまで！！！
